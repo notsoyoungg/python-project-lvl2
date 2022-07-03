@@ -1,0 +1,16 @@
+name: tests
+
+on: push
+jobs:
+  start_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          pip install poetry
+          make install
+      - name: Run tests
+        run: |
+          make tests
