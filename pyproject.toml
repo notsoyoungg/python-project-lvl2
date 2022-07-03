@@ -4,14 +4,15 @@ version = "0.1.0"
 description = ""
 authors = ["notsoyoungg <p.sergey1997@mail.ru>"]
 packages = [
-	{ include = 'gendiff.py' },
+	{ include = 'gendifff' },
 ]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+pytest = "^7.1.2"
 
 [tool.poetry.scripts]
-gendiff = 'gendiff:main'
+gendiff = 'gendifff.scripts.gendiff:main'
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"
