@@ -6,3 +6,6 @@ install:
 
 build:
 	poetry build
+
+tests:
+	poetry run pytest
