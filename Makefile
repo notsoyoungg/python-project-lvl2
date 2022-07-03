@@ -1,7 +1,7 @@
 lint:
 	poetry run flake8 gendifff
 
-install: # установить зависимости
+install:
 	poetry install
 
 build:
