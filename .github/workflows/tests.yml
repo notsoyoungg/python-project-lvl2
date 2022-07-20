@@ -19,10 +19,10 @@ jobs:
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 ./cc-test-reporter
           chmod +x ./cc-test-reporter
           ./cc-test-reporter before-build
-      -name: test
+      - name: test
         run: |
           make test-cov
-      -name: sending reporter
+      - name: sending reporter
         env:
           GITHUB_TOKEN: ${{ secrets.TEST_REPORTER_ID }}
         run: |
