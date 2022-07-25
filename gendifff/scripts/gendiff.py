@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-from gendifff.modules import make_diff
+from gendifff.modules.make_diff import make_diff
 from gendifff.modules import pars
-from gendifff.modules import formatters
+from gendifff.modules.formatters import generate_diff
 
 
 def main():
-    print(formatters.generate_diff(make_diff.make_diff(pars.readed, pars.readed2)))
+    print(generate_diff(make_diff(pars.readed, pars.readed2), pars.args.format))
 
 
 if __name__ == '__main__':

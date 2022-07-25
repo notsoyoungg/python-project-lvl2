@@ -19,7 +19,7 @@ def make_diff(dict1, dict2):
                 else:
                     diff_dict[f'= {key}'] = f'{key}: {dict1[key]}'
             if dict1[key] != dict2[key]:
-                if isinstance(dict1[key], dict) == isinstance(dict2[key], dict) == True:
+                if isinstance(dict1[key], dict) == isinstance(dict2[key], dict) is True:
                     diff_dict[key] = make_diff(dict1[key], dict2[key])
                 else:
                     diff_dict[f'-+ {key}'] = f'{dict1[key]} * {dict2[key]}'
