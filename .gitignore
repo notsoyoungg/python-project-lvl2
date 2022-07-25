@@ -2,3 +2,5 @@
 dist
 __pycache__
 .vscode
+some.json
+some2.json
