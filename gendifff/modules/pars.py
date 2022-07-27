@@ -3,7 +3,9 @@ import json
 from os.path import abspath
 import yaml
 from yaml.loader import FullLoader
-from gendifff.modules import formatters
+from gendifff.modules.formatters.stylish import stylish
+from gendifff.modules.formatters.plain import plain
+from gendifff.modules.formatters.json import jsonn
 
 
 parser = argparse.ArgumentParser(
@@ -11,7 +13,7 @@ parser = argparse.ArgumentParser(
 )
 parser.add_argument('first_file', type=str)
 parser.add_argument('second_file', type=str)
-parser.add_argument('-f', '--format', default=formatters.stylish,
+parser.add_argument('-f', '--format', default=stylish,
                     help='output format (default: "stylish")')
 args = parser.parse_args()
 
@@ -47,4 +49,6 @@ if args.second_file[-4:] == 'json':
 else:
     readed2 = format_dict(sort_dict(yaml.load(open(abspath(args.second_file)), FullLoader)))
 if args.format == 'plain':
-    args.format = formatters.plain
+    args.format = plain
+if args.format == 'json':
+    args.format = jsonn

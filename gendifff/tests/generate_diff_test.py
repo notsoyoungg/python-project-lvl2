@@ -2,7 +2,9 @@ import json
 from yaml import load
 from yaml.loader import FullLoader
 from os.path import abspath
-from gendifff.modules.formatters import generate_diff, plain
+from gendifff.modules.generate_diff import generate_diff
+from gendifff.modules.formatters.plain import plain
+from gendifff.modules.formatters.json import jsonn
 from gendifff.modules.make_diff import make_diff
 
 
@@ -91,3 +93,24 @@ def test_diff_recursive_plain():
     assert generate_diff(make_diff(dict1_json, dict2_json), plain) == result
     assert generate_diff(make_diff(dict1_yml, dict2_yml), plain) == result
     assert generate_diff(make_diff(dict1_yml, dict2_json), plain) == result
+
+
+def test_diff_recursive_json():
+    dict1_json = format_dict(sort_dict(json.load(open(abspath(
+        './gendifff/tests/fixtures/file1.json'
+    )))))
+    dict2_json = format_dict(sort_dict(json.load(open(abspath(
+        './gendifff/tests/fixtures/file2.json'
+    )))))
+    dict1_yml = format_dict(sort_dict(load(open(abspath(
+        './gendifff/tests/fixtures/file_yml1.yml'
+    )), FullLoader)))
+    dict2_yml = format_dict(sort_dict(load(open(abspath(
+        './gendifff/tests/fixtures/file_yml2.yml'
+    )), FullLoader)))
+    result = open(abspath(
+        './gendifff/tests/fixtures/result_json.txt'
+    ), 'r').read()
+    assert generate_diff(make_diff(dict1_json, dict2_json), jsonn) == result
+    assert generate_diff(make_diff(dict1_yml, dict2_yml), jsonn) == result
+    assert generate_diff(make_diff(dict1_yml, dict2_json), jsonn) == result

@@ -12,3 +12,5 @@
 [![asciicast](https://asciinema.org/a/7kKz1mO5BaCY6Z4MxhtA5WiN2.svg)](https://asciinema.org/a/7kKz1mO5BaCY6Z4MxhtA5WiN2)
 ### "Plain" format demonstration
 [![asciicast](https://asciinema.org/a/rQZKhzia7OfPzW5pwdVuTfBB8.svg)](https://asciinema.org/a/rQZKhzia7OfPzW5pwdVuTfBB8)
+### "json" format demonstration
+[![asciicast](https://asciinema.org/a/uHU1UE7Ff4A3TqE42DceCbNMD.svg)](https://asciinema.org/a/uHU1UE7Ff4A3TqE42DceCbNMD)

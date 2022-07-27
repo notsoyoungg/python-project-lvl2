@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from gendifff.modules.make_diff import make_diff
 from gendifff.modules import pars
-from gendifff.modules.formatters import generate_diff
+from gendifff.modules.generate_diff import generate_diff
 
 
 def main():
