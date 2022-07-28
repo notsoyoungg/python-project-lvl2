@@ -3,9 +3,9 @@ import json
 from os.path import abspath
 import yaml
 from yaml.loader import FullLoader
-from gendifff.modules.formatters.stylish import stylish
-from gendifff.modules.formatters.plain import plain
-from gendifff.modules.formatters.json import jsonn
+from gendiff.modules.formatters.stylish import stylish
+from gendiff.modules.formatters.plain import plain
+from gendiff.modules.formatters.json import jsonn
 
 
 parser = argparse.ArgumentParser(

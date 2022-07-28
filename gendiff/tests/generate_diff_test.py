@@ -2,10 +2,10 @@ import json
 from yaml import load
 from yaml.loader import FullLoader
 from os.path import abspath
-from gendifff.modules.generate_diff import generate_diff
-from gendifff.modules.formatters.plain import plain
-from gendifff.modules.formatters.json import jsonn
-from gendifff.modules.make_diff import make_diff
+from gendiff.modules.generate_diff import generate_diff
+from gendiff.modules.formatters.plain import plain
+from gendiff.modules.formatters.json import jsonn
+from gendiff.modules.make_diff import make_diff
 
 
 # хотел импортировать две функции ниже из модуля 'pars',
@@ -34,19 +34,19 @@ def format_dict(dict_):
 
 def test_diff_plain():
     dict1_json = format_dict(sort_dict(json.load(open(abspath(
-        './gendifff/tests/fixtures/plain_file1.json'
+        './gendiff/tests/fixtures/plain_file1.json'
     )))))
     dict2_json = format_dict(sort_dict(json.load(open(abspath(
-        './gendifff/tests/fixtures/plain_file2.json'
+        './gendiff/tests/fixtures/plain_file2.json'
     )))))
     dict1_yml = format_dict(sort_dict(load(open(abspath(
-        './gendifff/tests/fixtures/plain_filepath.yml'
+        './gendiff/tests/fixtures/plain_filepath.yml'
     )), FullLoader)))
     dict2_yml = format_dict(sort_dict(load(open(abspath(
-        './gendifff/tests/fixtures/plain_filepath2.yaml'
+        './gendiff/tests/fixtures/plain_filepath2.yaml'
     )), FullLoader)))
     result = open(abspath(
-        './gendifff/tests/fixtures/result_plain.txt'
+        './gendiff/tests/fixtures/result_plain.txt'
     ), 'r').read()
     assert generate_diff(make_diff(dict1_json, dict2_json)) == result
     assert generate_diff(make_diff(dict1_yml, dict2_yml)) == result
@@ -55,19 +55,19 @@ def test_diff_plain():
 
 def test_diff_recursive_stylish():
     dict1_json = format_dict(sort_dict(json.load(open(abspath(
-        './gendifff/tests/fixtures/file1.json'
+        './gendiff/tests/fixtures/file1.json'
     )))))
     dict2_json = format_dict(sort_dict(json.load(open(abspath(
-        './gendifff/tests/fixtures/file2.json'
+        './gendiff/tests/fixtures/file2.json'
     )))))
     dict1_yml = format_dict(sort_dict(load(open(abspath(
-        './gendifff/tests/fixtures/file_yml1.yml'
+        './gendiff/tests/fixtures/file_yml1.yml'
     )), FullLoader)))
     dict2_yml = format_dict(sort_dict(load(open(abspath(
-        './gendifff/tests/fixtures/file_yml2.yml'
+        './gendiff/tests/fixtures/file_yml2.yml'
     )), FullLoader)))
     result = open(abspath(
-        './gendifff/tests/fixtures/result_recursive.txt'
+        './gendiff/tests/fixtures/result_recursive.txt'
     ), 'r').read()
     assert generate_diff(make_diff(dict1_json, dict2_json)) == result
     assert generate_diff(make_diff(dict1_yml, dict2_yml)) == result
@@ -76,19 +76,19 @@ def test_diff_recursive_stylish():
 
 def test_diff_recursive_plain():
     dict1_json = format_dict(sort_dict(json.load(open(abspath(
-        './gendifff/tests/fixtures/file1.json'
+        './gendiff/tests/fixtures/file1.json'
     )))))
     dict2_json = format_dict(sort_dict(json.load(open(abspath(
-        './gendifff/tests/fixtures/file2.json'
+        './gendiff/tests/fixtures/file2.json'
     )))))
     dict1_yml = format_dict(sort_dict(load(open(abspath(
-        './gendifff/tests/fixtures/file_yml1.yml'
+        './gendiff/tests/fixtures/file_yml1.yml'
     )), FullLoader)))
     dict2_yml = format_dict(sort_dict(load(open(abspath(
-        './gendifff/tests/fixtures/file_yml2.yml'
+        './gendiff/tests/fixtures/file_yml2.yml'
     )), FullLoader)))
     result = open(abspath(
-        './gendifff/tests/fixtures/result_recursive_plain.txt'
+        './gendiff/tests/fixtures/result_recursive_plain.txt'
     ), 'r').read()
     assert generate_diff(make_diff(dict1_json, dict2_json), plain) == result
     assert generate_diff(make_diff(dict1_yml, dict2_yml), plain) == result
@@ -97,19 +97,19 @@ def test_diff_recursive_plain():
 
 def test_diff_recursive_json():
     dict1_json = format_dict(sort_dict(json.load(open(abspath(
-        './gendifff/tests/fixtures/file1.json'
+        './gendiff/tests/fixtures/file1.json'
     )))))
     dict2_json = format_dict(sort_dict(json.load(open(abspath(
-        './gendifff/tests/fixtures/file2.json'
+        './gendiff/tests/fixtures/file2.json'
     )))))
     dict1_yml = format_dict(sort_dict(load(open(abspath(
-        './gendifff/tests/fixtures/file_yml1.yml'
+        './gendiff/tests/fixtures/file_yml1.yml'
     )), FullLoader)))
     dict2_yml = format_dict(sort_dict(load(open(abspath(
-        './gendifff/tests/fixtures/file_yml2.yml'
+        './gendiff/tests/fixtures/file_yml2.yml'
     )), FullLoader)))
     result = open(abspath(
-        './gendifff/tests/fixtures/result_json.txt'
+        './gendiff/tests/fixtures/result_json.txt'
     ), 'r').read()
     assert generate_diff(make_diff(dict1_json, dict2_json), jsonn) == result
     assert generate_diff(make_diff(dict1_yml, dict2_yml), jsonn) == result

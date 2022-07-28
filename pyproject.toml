@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["notsoyoungg <p.sergey1997@mail.ru>"]
 packages = [
-	{ include = 'gendifff' },
+	{ include = 'gendiff' },
 ]
 
 [tool.poetry.dependencies]
@@ -14,7 +14,7 @@ PyYAML = "^6.0"
 pytest-cov = "^3.0.0"
 
 [tool.poetry.scripts]
-gendiff = 'gendifff.scripts.gendiff:main'
+gendiff = 'gendiff.scripts.gendiff:main'
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"
