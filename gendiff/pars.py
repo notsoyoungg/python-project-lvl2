@@ -47,12 +47,3 @@ if args.second_file[-4:] == 'json':
     readed2 = format_dict(sort_dict(json.load(open(abspath(args.second_file)))))
 else:
     readed2 = format_dict(sort_dict(yaml.load(open(abspath(args.second_file)), FullLoader)))
-
-
-def parse(filepath):
-    if filepath[-4] == 'json':
-        data = format_dict(json.load(open(abspath(filepath))))
-        return data
-    else:
-        data = format_dict(yaml.load(open(abspath(filepath)), FullLoader))
-        return data
