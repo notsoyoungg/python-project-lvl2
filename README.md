@@ -8,9 +8,9 @@
 [![asciicast](https://asciinema.org/a/O53y24veG8UxQJ594nI9oOStt.svg)](https://asciinema.org/a/O53y24veG8UxQJ594nI9oOStt)
 ### Yml plain demonstration:
 [![asciicast](https://asciinema.org/a/5QmC67YPGcyxXToKDErcuYuik.svg)](https://asciinema.org/a/5QmC67YPGcyxXToKDErcuYuik)
-### "Stylish" format demonstration:
+### "Stylish" output format demonstration:
 [![asciicast](https://asciinema.org/a/7kKz1mO5BaCY6Z4MxhtA5WiN2.svg)](https://asciinema.org/a/7kKz1mO5BaCY6Z4MxhtA5WiN2)
-### "Plain" format demonstration
+### "Plain" output format demonstration
 [![asciicast](https://asciinema.org/a/rQZKhzia7OfPzW5pwdVuTfBB8.svg)](https://asciinema.org/a/rQZKhzia7OfPzW5pwdVuTfBB8)
-### "json" format demonstration
+### "json" output format demonstration
 [![asciicast](https://asciinema.org/a/uHU1UE7Ff4A3TqE42DceCbNMD.svg)](https://asciinema.org/a/uHU1UE7Ff4A3TqE42DceCbNMD)
