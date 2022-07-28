@@ -90,9 +90,9 @@ def test_diff_recursive_plain():
     result = open(abspath(
         './tests/fixtures/result_recursive_plain.txt'
     ), 'r').read()
-    assert generate_diff(make_diff(dict1_json, dict2_json), plain) == result
-    assert generate_diff(make_diff(dict1_yml, dict2_yml), plain) == result
-    assert generate_diff(make_diff(dict1_yml, dict2_json), plain) == result
+    assert generate_diff(make_diff(dict1_json, dict2_json), 'plain') == result
+    assert generate_diff(make_diff(dict1_yml, dict2_yml), 'plain') == result
+    assert generate_diff(make_diff(dict1_yml, dict2_json), 'plain') == result
 
 
 def test_diff_recursive_json():
@@ -111,6 +111,6 @@ def test_diff_recursive_json():
     result = open(abspath(
         './tests/fixtures/result_json.txt'
     ), 'r').read()
-    assert generate_diff(make_diff(dict1_json, dict2_json), jsonn) == result
-    assert generate_diff(make_diff(dict1_yml, dict2_yml), jsonn) == result
-    assert generate_diff(make_diff(dict1_yml, dict2_json), jsonn) == result
+    assert generate_diff(make_diff(dict1_json, dict2_json), 'json') == result
+    assert generate_diff(make_diff(dict1_yml, dict2_yml), 'json') == result
+    assert generate_diff(make_diff(dict1_yml, dict2_json), 'json') == result
