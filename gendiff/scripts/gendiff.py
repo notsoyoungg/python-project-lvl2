@@ -5,7 +5,7 @@ from gendiff.gendiff import generate_diff
 
 
 def main():
-    print(generate_diff(pars.readed, pars.readed2, pars.args.format))
+    print(generate_diff(pars.args.first_file, pars.args.second_file, pars.args.format))
 
 
 if __name__ == '__main__':
