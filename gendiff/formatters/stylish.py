@@ -37,15 +37,15 @@ def stylish(diff_dictionaary):
                     second = value.split(' * ')[1]
                     first_plus_char = first + ' '
                     second_plus_char = second + ' '
-                    if first_plus_char[0] == '{':
+                    if first_plus_char[0] == '{' != second_plus_char[0]:
                         string += f'\n{chars[:-2]}- {key[3:]}: '
                         string += make_string(first, chars + chars2)
                         string += f'\n{chars[:-2]}+ {key[3:]}: {second}'
-                    if second_plus_char == '{':
+                    if second_plus_char[0] == '{' != first_plus_char[0]:
                         string += f'\n{chars[:-2]}- {key[3:]}: {first}'
                         string += f'\n{chars[:-2]}+ {key[3:]}: '
                         string += make_string(second, chars + chars2)
-                    if first_plus_char[0] != '{' and second_plus_char != '{':
+                    if first_plus_char[0] != '{' and second_plus_char[0] != '{':
                         string += f'\n{chars[:-2]}- {key[3:]}: {first}'
                         string += f'\n{chars[:-2]}+ {key[3:]}: {second}'
                 if key[0] != '=' and key[0:2] != '+ ' and key[0:2] != '- ' and key[0:2] != '+-' and key[0:2] != '-+':
