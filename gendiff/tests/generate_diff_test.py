@@ -2,7 +2,7 @@ import json
 from yaml import load
 from yaml.loader import FullLoader
 from os.path import abspath
-from gendiff.modules.generate_diff import generate_diff
+from gendiff.modules.gendiff import generate_diff
 from gendiff.modules.formatters.plain import plain
 from gendiff.modules.formatters.json import jsonn
 from gendiff.modules.make_diff import make_diff
