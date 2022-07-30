@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from gendiff.make_diff import make_diff
 from gendiff import pars
 from gendiff.gendiff import generate_diff
 
