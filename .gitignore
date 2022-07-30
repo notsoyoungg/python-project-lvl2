@@ -4,3 +4,6 @@ __pycache__
 .vscode
 some.json
 some2.json
+.coverage
+cc-test-reporter
+filepath.yml
