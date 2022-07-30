@@ -1,4 +1,4 @@
-def make_diff(dict1, dict2):
+def make_diff(dict1, dict2):  # noqa: C901
     diff_dict = {}
     set_of_keys = sorted(list(set(list(dict1.keys()) + list(dict2.keys()))))
     for key in set_of_keys:
@@ -9,7 +9,8 @@ def make_diff(dict1, dict2):
                 else:
                     diff_dict[f'= {key}'] = dict1[key]
             if dict1[key] != dict2[key]:
-                if isinstance(dict1[key], dict) == isinstance(dict2[key], dict) is True:
+                if isinstance(dict1[key], dict) == \
+                   isinstance(dict2[key], dict) is True:
                     diff_dict[key] = make_diff(dict1[key], dict2[key])
                 else:
                     diff_dict[f'-+ {key}'] = [dict1[key], dict2[key]]

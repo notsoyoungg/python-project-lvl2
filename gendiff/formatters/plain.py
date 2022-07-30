@@ -1,4 +1,4 @@
-def plain(diff_dictionary):
+def plain(diff_dictionary):  # noqa: C901
     prop = "Property '"
     add = 'was added with value:'
     rm = 'was removed'
@@ -31,7 +31,8 @@ def plain(diff_dictionary):
                     val1 = first.replace('"', "'")
                     val2 = second.replace('"', "'")
                     string += f"\n{chars}{key[3:]}' {upd} {val1} to {val2}"
-            if key[0:2] != '+ ' and key[0:2] != '- ' and key[0:2] != '-+' and key[0:2] != '= ':
+            if key[0:2] != '+ ' and key[0:2] != \
+               '- ' and key[0:2] != '-+' and key[0:2] != '= ':
                 string += walk(value, chars + f'{key}.')
         return string
     return walk(diff_dictionary, prop).strip()
