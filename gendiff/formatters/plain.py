@@ -28,9 +28,9 @@ def plain(diff_dictionary):
                     new_val = first.replace('"', "'")
                     string += f"\n{chars}{key[3:]}' {upd} {new_val} to {val}"
                 if not isinstance(first, dict) and not isinstance(second, dict):
-                    new_val1 = first.replace('"', "'")
-                    new_val2 = second.replace('"', "'")
-                    string += f"\n{chars}{key[3:]}' {upd} {new_val1} to {new_val2}"
+                    val1 = first.replace('"', "'")
+                    val2 = second.replace('"', "'")
+                    string += f"\n{chars}{key[3:]}' {upd} {val1} to {val2}"
             if key[0:2] != '+ ' and key[0:2] != '- ' and key[0:2] != '-+' and key[0:2] != '= ':
                 string += walk(value, chars + f'{key}.')
         return string
