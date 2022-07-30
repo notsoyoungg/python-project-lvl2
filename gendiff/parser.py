@@ -6,12 +6,8 @@ from os.path import abspath
 
 def format_dict(dict_):
     for key in dict_:
-        if isinstance(dict_[key], bool):
+        if not isinstance(dict_[key], dict):
             dict_[key] = json.dumps(dict_[key])
-        if dict_[key] is None:
-            dict_[key] = json.dumps(dict_[key])
-        if isinstance(dict_[key], int):
-            dict_[key] = str(dict_[key])
         if isinstance(dict_[key], dict):
             format_dict(dict_[key])
     return dict_

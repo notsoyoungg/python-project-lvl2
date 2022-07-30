@@ -1,15 +1,7 @@
-def is_exception(string):
-    list_of_values = ['true', 'false', 'null']
-    for value in list_of_values:
-        if value == string:
-            return True
-    return False
-
-
 def plain(diff_dictionary):
     prop = "Property '"
     add = 'was added with value:'
-    rm = 'was removed'
+    rm = 'was remowed'
     upd = 'was updated. From'
     val = '[complex value]'
 
@@ -22,36 +14,23 @@ def plain(diff_dictionary):
                 if isinstance(value, dict):
                     string += f"\n{chars}{key[2:]}' {add} {val}"
                 else:
-                    if is_exception(value[len(key):]):
-                        string += f"\n{chars}{key[2:]}' {add} {value[len(key):]}"
-                    else:
-                        string += f"\n{chars}{key[2:]}' {add} '{value[len(key):]}'"
+                    new_val = value.replace('"', "'")
+                    string += f"\n{chars}{key[2:]}' {add} {new_val}"
             if key[0:2] == '- ':
                 string += f"\n{chars}{key[2:]}' {rm}"
             if key[0:2] == '-+':
-                first = value.split(' * ')[0]
-                second = value.split(' * ')[1]
-                first_plus_char = first + ' '
-                second_plus_char = second + ' '
-                if first_plus_char[0] == '{':
-                    if is_exception(second):
-                        string += f"\n{chars}{key[3:]}' {upd} {val} to {second}"
-                    else:
-                        string += f"\n{chars}{key[3:]}' {upd} {val} to '{second}'"
-                if second_plus_char[0] == '{':
-                    if is_exception(first):
-                        string += f"\n{chars}{key[3:]}' {upd} {first} to {val}"
-                    else:
-                        string += f"\n{chars}{key[3:]}' {upd} '{first}' to {val}"
-                if first_plus_char[0] != '{' and second_plus_char[0] != '{':
-                    if is_exception(first) and not is_exception(second):
-                        string += f"\n{chars}{key[3:]}' {upd} {first} to '{second}'"
-                    if is_exception(second) and not is_exception(first):
-                        string += f"\n{chars}{key[3:]}' {upd} '{first}' to {second}"
-                    if is_exception(first) and is_exception(second):
-                        string += f"\n{chars}{key[3:]}' {upd} {first} to {second}"
-                    else:
-                        string += f"\n{chars}{key[3:]}' {upd} '{first}' to '{second}'"
+                first = value[0]
+                second = value[1]
+                if isinstance(first, dict):
+                    new_val = second.replace('"', "'")
+                    string += f"\n{chars}{key[3:]}' {upd} {val} to {new_val}"
+                if isinstance(second, dict):
+                    new_val = first.replace('"', "'")
+                    string += f"\n{chars}{key[3:]}' {upd} {new_val} to {val}"
+                if not isinstance(first, dict) and not isinstance(second, dict):
+                    new_val1 = first.replace('"', "'")
+                    new_val2 = second.replace('"', "'")
+                    string += f"\n{chars}{key[3:]}' {upd} {new_val1} to {new_val2}"
             if key[0:2] != '+ ' and key[0:2] != '- ' and key[0:2] != '-+' and key[0:2] != '= ':
                 string += walk(value, chars + f'{key}.')
         return string
