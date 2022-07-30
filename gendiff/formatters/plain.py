@@ -1,7 +1,7 @@
 def plain(diff_dictionary):
     prop = "Property '"
     add = 'was added with value:'
-    rm = 'was remowed'
+    rm = 'was removed'
     upd = 'was updated. From'
     val = '[complex value]'
 
