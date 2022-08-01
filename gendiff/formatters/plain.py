@@ -1,3 +1,6 @@
+from gendiff.diff_maker import KEYS_LIST
+
+
 def plain(diff_dictionary):  # noqa: C901
     prop = "Property '"
     add = 'was added with value:'
@@ -31,8 +34,7 @@ def plain(diff_dictionary):  # noqa: C901
                     val1 = first.replace('"', "'")
                     val2 = second.replace('"', "'")
                     string += f"\n{chars}{key[3:]}' {upd} {val1} to {val2}"
-            if key[0:2] != '+ ' and key[0:2] != \
-               '- ' and key[0:2] != '-+' and key[0:2] != '= ':
+            if key[0:2] not in KEYS_LIST and isinstance(value, dict):
                 string += walk(value, chars + f'{key}.')
         return string
     return walk(diff_dictionary, prop).strip()

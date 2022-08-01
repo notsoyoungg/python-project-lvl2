@@ -1,54 +1,56 @@
+import pytest
 from os.path import abspath
 from gendiff.gendiff import generate_diff
 
 
-def test_diff_plain():
-    dict1_json = './tests/fixtures/plain_file1.json'
-    dict2_json = './tests/fixtures/plain_file2.json'
-    dict1_yml = './tests/fixtures/plain_filepath.yml'
-    dict2_yml = './tests/fixtures/plain_filepath2.yaml'
-    result = open(abspath(
-        './tests/fixtures/result_plain.txt'
+JSON_FLAT1 = './tests/fixtures/plain_file1.json'
+JSON_FLAT2 = './tests/fixtures/plain_file2.json'
+JSON_NESTED1 = './tests/fixtures/file1.json'
+JSON_NESTED2 = './tests/fixtures/file2.json'
+YML_FLAT1 = './tests/fixtures/plain_filepath.yml'
+YML_FLAT2 = './tests/fixtures/plain_filepath2.yaml'
+YML_NESTED1 = './tests/fixtures/file_yml1.yml'
+YML_NESTED2 = './tests/fixtures/file_yml2.yml'
+EXPECTED_FLAT = open(abspath('./tests/fixtures/result_plain.txt'), 'r').read()
+EXPECTED_STYLISH = open(abspath('./tests/fixtures/result_recursive.txt'
     ), 'r').read()
-    assert generate_diff(dict1_json, dict2_json) == result
-    assert generate_diff(dict1_yml, dict2_yml) == result
-    assert generate_diff(dict1_yml, dict2_json) == result
-
-
-def test_diff_recursive_stylish():
-    dict1_json = './tests/fixtures/file1.json'
-    dict2_json = './tests/fixtures/file2.json'
-    dict1_yml = './tests/fixtures/file_yml1.yml'
-    dict2_yml = './tests/fixtures/file_yml2.yml'
-    result = open(abspath(
-        './tests/fixtures/result_recursive.txt'
-    ), 'r').read()
-    assert generate_diff(dict1_json, dict2_json) == result
-    assert generate_diff(dict1_yml, dict2_yml) == result
-    assert generate_diff(dict1_yml, dict2_json) == result
-
-
-def test_diff_recursive_plain():
-    dict1_json = './tests/fixtures/file1.json'
-    dict2_json = './tests/fixtures/file2.json'
-    dict1_yml = './tests/fixtures/file_yml1.yml'
-    dict2_yml = './tests/fixtures/file_yml2.yml'
-    result = open(abspath(
+EXPECTED_PLAIN = open(abspath(
         './tests/fixtures/result_recursive_plain.txt'
     ), 'r').read()
-    assert generate_diff(dict1_json, dict2_json, 'plain') == result
-    assert generate_diff(dict1_yml, dict2_yml, 'plain') == result
-    assert generate_diff(dict1_yml, dict2_json, 'plain') == result
+EXPECTED_JSON = open(abspath('./tests/fixtures/result_json.txt'), 'r').read()
 
 
-def test_diff_recursive_json():
-    dict1_json = './tests/fixtures/file1.json'
-    dict2_json = './tests/fixtures/file2.json'
-    dict1_yml = './tests/fixtures/file_yml1.yml'
-    dict2_yml = './tests/fixtures/file_yml2.yml'
-    result = open(abspath(
-        './tests/fixtures/result_json.txt'
-    ), 'r').read()
-    assert generate_diff(dict1_json, dict2_json, 'json') == result
-    assert generate_diff(dict1_yml, dict2_yml, 'json') == result
-    assert generate_diff(dict1_yml, dict2_json, 'json') == result
+@pytest.mark.parametrize("test_input1,test_input2,expected", [
+                        (JSON_FLAT1, JSON_FLAT2, EXPECTED_FLAT),
+                        (YML_FLAT1, YML_FLAT2, EXPECTED_FLAT),
+                        (YML_FLAT1, JSON_FLAT2, EXPECTED_FLAT)
+                        ])
+def test_diff_plain(test_input1, test_input2, expected):
+    assert generate_diff(test_input1, test_input2) == expected
+
+
+@pytest.mark.parametrize("test_input1,test_input2,expected", [
+                        (JSON_NESTED1, JSON_NESTED2, EXPECTED_STYLISH),
+                        (YML_NESTED1, YML_NESTED2, EXPECTED_STYLISH),
+                        (YML_NESTED1, JSON_NESTED2, EXPECTED_STYLISH)
+                        ])
+def test_diff_recursive_stylish(test_input1, test_input2, expected):
+    assert generate_diff(test_input1, test_input2, 'stylish') == expected
+
+
+@pytest.mark.parametrize("test_input1,test_input2,expected", [
+                        (JSON_NESTED1, JSON_NESTED2, EXPECTED_PLAIN),
+                        (YML_NESTED1, YML_NESTED2, EXPECTED_PLAIN),
+                        (YML_NESTED1, JSON_NESTED2, EXPECTED_PLAIN)
+                        ])
+def test_diff_recursive_plain(test_input1, test_input2, expected):
+    assert generate_diff(test_input1, test_input2, 'plain') == expected
+
+
+@pytest.mark.parametrize("test_input1,test_input2,expected", [
+                        (JSON_NESTED1, JSON_NESTED2, EXPECTED_JSON),
+                        (YML_NESTED1, YML_NESTED2, EXPECTED_JSON),
+                        (YML_NESTED1, JSON_NESTED2, EXPECTED_JSON)
+                        ])
+def test_diff_recursive_json(test_input1, test_input2, expected):
+    assert generate_diff(test_input1, test_input2, 'json') == expected
