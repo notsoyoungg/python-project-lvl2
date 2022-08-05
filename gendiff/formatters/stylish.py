@@ -37,7 +37,8 @@ def stylish(diff_dictionaary):  # noqa: C901
                     string += f'\n{chars}{key}: '
                     string += walk(value, chars + chars2)
             elif key[0:2] == '+ ' or key[0:2] == '- ':
-                string += f"\n{chars[:-2]}{key}: {format(value, chars + chars2)}"
+                string += f"\n{chars[:-2]}{key}: "\
+                          f"{format(value, chars + chars2)}"
             elif key[0:2] == '-+':
                 first = value[0]
                 second = value[1]
