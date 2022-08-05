@@ -3,20 +3,28 @@ from os.path import abspath
 from gendiff.gendiff import generate_diff
 
 
-JSON_FLAT1 = './tests/fixtures/plain_file1.json'
-JSON_FLAT2 = './tests/fixtures/plain_file2.json'
-JSON_NESTED1 = './tests/fixtures/file1.json'
-JSON_NESTED2 = './tests/fixtures/file2.json'
-YML_FLAT1 = './tests/fixtures/plain_filepath.yml'
-YML_FLAT2 = './tests/fixtures/plain_filepath2.yaml'
-YML_NESTED1 = './tests/fixtures/file_yml1.yml'
-YML_NESTED2 = './tests/fixtures/file_yml2.yml'
-EXPECTED_FLAT = open(abspath('./tests/fixtures/result_plain.txt'), 'r').read()
-EXPECTED_STYLISH = open(abspath('./tests/fixtures/result_recursive.txt'
-                                ), 'r').read()
-EXPECTED_PLAIN = open(abspath('./tests/fixtures/result_recursive_plain.txt'
-                              ), 'r').read()
-EXPECTED_JSON = open(abspath('./tests/fixtures/result_json.txt'), 'r').read()
+FIXTURE_PATH = './tests/fixtures/'
+
+
+def build_filepath(file_name):
+    if file_name[0:6] == 'result':
+        return open(abspath(FIXTURE_PATH + file_name)).read()
+    else:
+        return FIXTURE_PATH + file_name
+
+
+JSON_FLAT1 = build_filepath('plain_file1.json')
+JSON_FLAT2 = build_filepath('plain_file2.json')
+JSON_NESTED1 = build_filepath('file1.json')
+JSON_NESTED2 = build_filepath('file2.json')
+YML_FLAT1 = build_filepath('plain_filepath.yml')
+YML_FLAT2 = build_filepath('plain_filepath2.yaml')
+YML_NESTED1 = build_filepath('file_yml1.yml')
+YML_NESTED2 = build_filepath('file_yml2.yml')
+EXPECTED_FLAT = build_filepath('result_plain.txt')
+EXPECTED_STYLISH = build_filepath('result_recursive.txt')
+EXPECTED_PLAIN = build_filepath('result_recursive_plain.txt')
+EXPECTED_JSON = build_filepath('result_json.txt')
 
 
 @pytest.mark.parametrize("test_input1,test_input2,expected", [

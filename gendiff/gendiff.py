@@ -2,12 +2,13 @@ from gendiff.formatters.stylish import stylish
 from gendiff.formatters.plain import plain
 from gendiff.formatters.json import jsonn
 from gendiff.diff_maker import make_diff
-from gendiff.parser import get_data, get_format
+from gendiff.parser import parse, get_content_and_format
 
 
 def generate_diff(filepath1, filepath2, format='stylish'):
-    diff = make_diff(get_data(filepath1, get_format(filepath1)),
-                     get_data(filepath2, get_format(filepath2)))
+    content1, format1 = get_content_and_format(filepath1)
+    content2, format2 = get_content_and_format(filepath2)
+    diff = make_diff(parse(content1, format1), parse(content2, format2))
     if format == 'plain':
         return plain(diff)
     if format == 'json':

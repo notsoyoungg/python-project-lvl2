@@ -1,6 +1,5 @@
 import json
 import yaml
-from yaml.loader import FullLoader
 from os.path import abspath
 
 
@@ -13,22 +12,18 @@ def format_dict(dict_):
     return dict_
 
 
-def get_data(filepath, format):
+def parse(content, format):
     if format == 'json':
-        data = format_dict(json.load(open_file(filepath)))
+        data = format_dict(json.load(content))
         return data
     else:
-        data = format_dict(yaml.load(open_file(filepath), FullLoader))
+        data = format_dict(yaml.safe_load(content))
         return data
 
 
-def open_file(filepath):
+def get_content_and_format(filepath):
     content = open(abspath(filepath))
-    return content
-
-
-def get_format(filepath):
     if filepath[-4] == 'json':
-        return 'json'
+        return content, 'json'
     else:
-        return 'yaml'
+        return content, 'yaml'
