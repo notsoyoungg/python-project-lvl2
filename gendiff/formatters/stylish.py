@@ -15,7 +15,7 @@ def to_string(item, spaces):
     return new_string
 
 
-def check(item, spaces):
+def format(item, spaces):
     if not isinstance(item, dict):
         return item.strip('"')
     else:
@@ -37,16 +37,16 @@ def stylish(diff_dictionaary):  # noqa: C901
                     string += f'\n{chars}{key}: '
                     string += walk(value, chars + chars2)
             elif key[0:2] == '+ ' or key[0:2] == '- ':
-                string += f"\n{chars[:-2]}{key}: {check(value, chars + chars2)}"
+                string += f"\n{chars[:-2]}{key}: {format(value, chars + chars2)}"
             elif key[0:2] == '-+':
                 first = value[0]
                 second = value[1]
                 string += f"\n{chars[:-2]}- {key[3:]}: "\
-                          f"{check(first, chars + chars2)}"
+                          f"{format(first, chars + chars2)}"
                 string += f"\n{chars[:-2]}+ {key[3:]}: "\
-                          f"{check(second, chars + chars2)}"
+                          f"{format(second, chars + chars2)}"
             elif key[0:2] not in KEYS_LIST:
-                string += f"\n{chars}{key}: {check(value, chars + chars2)}"
+                string += f"\n{chars}{key}: {format(value, chars + chars2)}"
         string += '\n' + chars[len(chars2):] + "}"
         return string
     return walk(diff_dictionaary, chars)
