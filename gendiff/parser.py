@@ -21,9 +21,10 @@ def parse(content, format):
         return data
 
 
-def get_content_and_format(filepath):
+def get_content(filepath):
     content = open(abspath(filepath))
     if filepath[-4] == 'json':
-        return content, 'json'
+        extension = 'json'
     else:
-        return content, 'yaml'
+        extension = 'yaml'
+    return parse(content, extension)
