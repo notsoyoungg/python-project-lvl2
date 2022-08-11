@@ -1,11 +1,15 @@
-from gendiff.diff_maker import KEYS_LIST
-
-
 def format_val(value):
     if isinstance(value, dict):
         return '[complex value]'
     else:
         return value.replace('"', "'")
+
+
+def join_to_path(parent, child):
+    if parent:
+        return f"{parent}.{child}"
+    else:
+        return child
 
 
 PROP = "Property '"
@@ -14,24 +18,19 @@ RM = 'was removed'
 UPD = 'was updated. From'
 
 
-def plain(diff_dictionary):  # noqa: C901
-
-    def walk(dictionary, chars):
-        string = ''
-        chars2 = "Property '"
-        chars2 += chars
-        for key, value in dictionary.items():
-            if key[0:2] == '+ ':
-                string += f"\n{chars}{key[2:]}' "\
-                          f"{ADD} {format_val(value)}"
-            elif key[0:2] == '- ':
-                string += f"\n{chars}{key[2:]}' {RM}"
-            elif key[0:2] == '-+':
-                first = value[0]
-                second = value[1]
-                string += f"\n{chars}{key[3:]}' {UPD} "\
-                          f"{format_val(first)} to {format_val(second)}"
-            elif key[0:2] not in KEYS_LIST and isinstance(value, dict):
-                string += walk(value, chars + f'{key}.')
-        return string
-    return walk(diff_dictionary, PROP).strip()
+def plain(diff, parent=''):
+    string = []
+    for item in diff:
+        full_path = join_to_path(parent, item['key'])
+        if item['action'] == 'added':
+            string.append(f"{PROP}{full_path}' {ADD} "
+                          f"{format_val(item['value'])}")
+        if item['action'] == 'removed':
+            string.append(f"{PROP}{full_path}' {RM}")
+        if item['action'] == 'changed':
+            string.append(f"{PROP}{full_path}' {UPD} "
+                          f"{format_val(item['old_value'])} to "
+                          f"{format_val(item['new_value'])}")
+        if item['action'] == 'nested':
+            string.append(plain(item['value'], full_path))
+    return '\n'.join(string)

@@ -3,6 +3,7 @@ import yaml
 from os.path import abspath
 
 
+# функция нужна для преобразования False в false, None в null и т.д.
 def format_dict(dict_):
     for key in dict_:
         if not isinstance(dict_[key], dict):
