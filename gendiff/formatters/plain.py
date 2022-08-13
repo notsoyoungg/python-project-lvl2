@@ -1,8 +1,21 @@
+import json
+
+
+EXCEPTION_VALUES = [True, False, None]
+PROP = "Property '"
+ADD = 'was added with value:'
+RM = 'was removed'
+UPD = 'was updated. From'
+
+
 def format_val(value):
     if isinstance(value, dict):
         return '[complex value]'
     else:
-        return value.replace('"', "'")
+        if value in EXCEPTION_VALUES:
+            return json.dumps(value)
+        else:
+            return f"'{value}'"
 
 
 def join_to_path(parent, child):
@@ -12,25 +25,19 @@ def join_to_path(parent, child):
         return child
 
 
-PROP = "Property '"
-ADD = 'was added with value:'
-RM = 'was removed'
-UPD = 'was updated. From'
-
-
-def plain(diff, parent=''):
-    string = []
+def make_plain(diff, parent=''):
+    result = []
     for item in diff:
         full_path = join_to_path(parent, item['key'])
         if item['action'] == 'added':
-            string.append(f"{PROP}{full_path}' {ADD} "
+            result.append(f"{PROP}{full_path}' {ADD} "
                           f"{format_val(item['value'])}")
         if item['action'] == 'removed':
-            string.append(f"{PROP}{full_path}' {RM}")
+            result.append(f"{PROP}{full_path}' {RM}")
         if item['action'] == 'changed':
-            string.append(f"{PROP}{full_path}' {UPD} "
+            result.append(f"{PROP}{full_path}' {UPD} "
                           f"{format_val(item['old_value'])} to "
                           f"{format_val(item['new_value'])}")
         if item['action'] == 'nested':
-            string.append(plain(item['value'], full_path))
-    return '\n'.join(string)
+            result.append(make_plain(item['value'], full_path))
+    return '\n'.join(result)

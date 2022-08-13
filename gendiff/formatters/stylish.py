@@ -1,42 +1,52 @@
-def to_string(item, spaces):
-    new_string = '{'
-    chars = '    '
+import json
+
+
+EXCEPTION_VALUES = [True, False, None]
+VALUE_STATUSES = {'added': '+ ', 'removed': '- ', 'unchanged': '  '}
+
+
+def format_value(item):
+    if item in EXCEPTION_VALUES:
+        return json.dumps(item)
+    else:
+        return item
+
+
+def make_string(item, spaces):
+    result = '{'
+    tabs = '    '
     for key, value in item.items():
         if isinstance(value, dict):
-            new_string += f'\n{spaces}{key}: '
-            new_string += to_string(value, spaces + chars)
+            result += f'\n{spaces}{key}: '
+            result += make_string(value, spaces + tabs)
         else:
-            val = value.strip('"')
-            new_string += f'\n{spaces}{key}: {val}'
-    new_string += '\n' + spaces[len(chars):] + "}"
-    return new_string
+            result += f'\n{spaces}{key}: {format_value(value)}'
+    result += '\n' + spaces[len(tabs):] + "}"
+    return result
 
 
 def format(item, spaces):
     if not isinstance(item, dict):
-        return item.strip('"')
+        return format_value(item)
     else:
-        return to_string(item, spaces)
+        return make_string(item, spaces)
 
 
-KEYS_LIST = {'added': '+ ', 'removed': '- ', 'unchanged': '  '}
-
-
-def stylish(diff, indent=''):
-    chars = '    '
-    string = '{'
-    spaces = indent + chars
+def make_stylish(diff, indent=''):
+    tabs = '    '
+    result = '{'
+    spaces = indent + tabs
     for item in diff:
         if item['action'] == 'nested':
-            string += f"\n{spaces[:-2]}  {item['key']}: "
-            string += stylish(item['value'], spaces)
+            result += f"\n{spaces[:-2]}  {item['key']}: "
+            result += make_stylish(item['value'], spaces)
         if item['action'] == 'changed':
-            string += f"\n{spaces[:-2]}- {item['key']}: "\
-                      f"{format(item['old_value'], spaces + chars)}"
-            string += f"\n{spaces[:-2]}+ {item['key']}: "\
-                      f"{format(item['new_value'], spaces + chars)}"
-        if item['action'] in KEYS_LIST:
-            string += f"\n{spaces[:-2]}{KEYS_LIST[item['action']]}"\
-                      f"{item['key']}: {format(item['value'], spaces + chars)}"
-    string += '\n' + spaces[len(chars):] + "}"
-    return string
+            result += f"\n{spaces[:-2]}- {item['key']}: "\
+                      f"{format(item['old_value'], spaces + tabs)}"
+            result += f"\n{spaces[:-2]}+ {item['key']}: "\
+                      f"{format(item['new_value'], spaces + tabs)}"
+        if item['action'] in VALUE_STATUSES :
+            result += f"\n{spaces[:-2]}{VALUE_STATUSES [item['action']]}"\
+                      f"{item['key']}: {format(item['value'], spaces + tabs)}"
+    result += '\n' + spaces[len(tabs):] + "}"
+    return result
