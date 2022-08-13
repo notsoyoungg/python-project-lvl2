@@ -45,7 +45,7 @@ def make_stylish(diff, indent=''):
                       f"{format(item['old_value'], spaces + tabs)}"
             result += f"\n{spaces[:-2]}+ {item['key']}: "\
                       f"{format(item['new_value'], spaces + tabs)}"
-        if item['action'] in VALUE_STATUSES :
+        if item['action'] in VALUE_STATUSES:
             result += f"\n{spaces[:-2]}{VALUE_STATUSES [item['action']]}"\
                       f"{item['key']}: {format(item['value'], spaces + tabs)}"
     result += '\n' + spaces[len(tabs):] + "}"
