@@ -1,7 +1,7 @@
 import json
 
 
-EXCEPTION_VALUES = [True, False, None]
+NON_FORMAT_VALUES = [True, False, None]
 PROPERTY = "Property '"
 ADDED = 'was added with value:'
 REMOVED = 'was removed'
@@ -12,7 +12,7 @@ def format_val(value):
     if isinstance(value, dict):
         return '[complex value]'
     else:
-        if value in EXCEPTION_VALUES:
+        if value in NON_FORMAT_VALUES:
             return json.dumps(value)
         else:
             return f"'{value}'"
