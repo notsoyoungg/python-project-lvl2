@@ -1,5 +1,3 @@
-# прошлое имя файла - "diff_maker" - тоже было существительным,
-# так что я не уверен, что стоило его менять...
 def make_diff(data1, data2):
     diff = []
     set_of_keys = sorted(list(set(list(data1.keys()) + list(data2.keys()))))

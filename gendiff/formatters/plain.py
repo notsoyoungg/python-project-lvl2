@@ -1,7 +1,3 @@
-import json
-
-
-NON_FORMAT_VALUES = [True, False, None]
 PROPERTY = "Property '"
 ADDED = 'was added with value:'
 REMOVED = 'was removed'
@@ -15,11 +11,11 @@ def render_plain(diff):
 def to_str(value):
     if isinstance(value, dict):
         return '[complex value]'
-    else:
-        if value in NON_FORMAT_VALUES:
-            return json.dumps(value)
-        else:
-            return f"'{value}'"
+    if isinstance(value, bool):
+        return str(value).lower()
+    if value is None:
+        return 'null'
+    return f"'{value}'"
 
 
 def iter_(diff, parent=''):

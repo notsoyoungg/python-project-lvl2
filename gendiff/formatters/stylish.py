@@ -1,12 +1,16 @@
-import json
-
-
-NON_FORMAT_VALUES = [True, False, None]
 ACTION_PREFIXES = {'added': '+ ', 'removed': '- ', 'unchanged': '  '}
 
 
 def render_stylish(diff):
     return iter_(diff)
+
+
+def format_bool_and_nonetype(value):
+    if isinstance(value, bool):
+        return str(value).lower()
+    if value is None:
+        return 'null'
+    return value
 
 
 def to_str(item, spaces):
@@ -18,15 +22,10 @@ def to_str(item, spaces):
                 result += f'\n{spaces}{key}: '
                 result += to_str(value, spaces + tabs)
             else:
-                if value in NON_FORMAT_VALUES:
-                    result += f'\n{spaces}{key}: {json.dumps(value)}'
-                else:
-                    result += f'\n{spaces}{key}: {value}'
+                result += f'\n{spaces}{key}: {format_bool_and_nonetype(value)}'
         result += '\n' + spaces[len(tabs):] + "}"
         return result
-    if item in NON_FORMAT_VALUES:
-        return json.dumps(item)
-    return item
+    return format_bool_and_nonetype(item)
 
 
 def iter_(diff, indent=''):
