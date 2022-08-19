@@ -4,6 +4,13 @@
 [![linter](https://github.com/notsoyoungg/python-project-lvl2/actions/workflows/lint.yml/badge.svg)](https://github.com/notsoyoungg/python-project-lvl2/actions/workflows/lint.yml)
 [![tests](https://github.com/notsoyoungg/python-project-lvl2/actions/workflows/tests.yml/badge.svg)](https://github.com/notsoyoungg/python-project-lvl2/actions/workflows/tests.yml)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e4f2ddf77f7fd03d4b6d/test_coverage)](https://codeclimate.com/github/notsoyoungg/python-project-lvl2/test_coverage)
+### Description of difference calculator:
+This program determines the difference between two data structures. Difference calculator supports formats 'json' and 'yaml'. The report is generated in one of three formats: 'stylish', 'plain' or 'json'.
+### How to install:
+```python3 -m pip install --user git+https://github.com/notsoyoungg/python-project-lvl2.git```
+### How to use the programm:
+```gendiff -h``` - for help
+```gendiff -f stylish filepath1.json filepath2.yaml```
 ### Json plain demonstration:
 [![asciicast](https://asciinema.org/a/O53y24veG8UxQJ594nI9oOStt.svg)](https://asciinema.org/a/O53y24veG8UxQJ594nI9oOStt)
 ### Yml plain demonstration:

@@ -7,3 +7,4 @@ some2.json
 .coverage
 cc-test-reporter
 filepath.yml
+coverage.xml

@@ -8,7 +8,11 @@ REMOVED = 'was removed'
 UPDATED = 'was updated. From'
 
 
-def format_val(value):
+def render_plain(diff):
+    return iter_(diff)
+
+
+def to_str(value):
     if isinstance(value, dict):
         return '[complex value]'
     else:
@@ -18,19 +22,19 @@ def format_val(value):
             return f"'{value}'"
 
 
-def make_plain(diff, parent=''):
+def iter_(diff, parent=''):
     result = []
     for item in diff:
         full_path = f"{parent}.{item['key']}" if parent else f"{item['key']}"
         if item['action'] == 'added':
             result.append(f"{PROPERTY}{full_path}' {ADDED} "
-                          f"{format_val(item['value'])}")
+                          f"{to_str(item['value'])}")
         if item['action'] == 'removed':
             result.append(f"{PROPERTY}{full_path}' {REMOVED}")
         if item['action'] == 'changed':
             result.append(f"{PROPERTY}{full_path}' {UPDATED} "
-                          f"{format_val(item['old_value'])} to "
-                          f"{format_val(item['new_value'])}")
+                          f"{to_str(item['old_value'])} to "
+                          f"{to_str(item['new_value'])}")
         if item['action'] == 'nested':
-            result.append(make_plain(item['value'], full_path))
+            result.append(iter_(item['value'], full_path))
     return '\n'.join(result)

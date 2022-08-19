@@ -5,6 +5,10 @@ NON_FORMAT_VALUES = [True, False, None]
 ACTION_PREFIXES = {'added': '+ ', 'removed': '- ', 'unchanged': '  '}
 
 
+def render_stylish(diff):
+    return iter_(diff)
+
+
 def to_str(item, spaces):
     if isinstance(item, dict):
         result = '{'
@@ -20,21 +24,19 @@ def to_str(item, spaces):
                     result += f'\n{spaces}{key}: {value}'
         result += '\n' + spaces[len(tabs):] + "}"
         return result
-    else:
-        if item in NON_FORMAT_VALUES:
-            return json.dumps(item)
-        else:
-            return item
+    if item in NON_FORMAT_VALUES:
+        return json.dumps(item)
+    return item
 
 
-def make_stylish(diff, indent=''):
+def iter_(diff, indent=''):
     tabs = '    '
     result = '{'
     spaces = indent + tabs
     for item in diff:
         if item['action'] == 'nested':
             result += f"\n{spaces[:-2]}  {item['key']}: "
-            result += make_stylish(item['value'], spaces)
+            result += iter_(item['value'], spaces)
         if item['action'] == 'changed':
             result += f"\n{spaces[:-2]}- {item['key']}: "\
                       f"{to_str(item['old_value'], spaces + tabs)}"
