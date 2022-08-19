@@ -10,7 +10,7 @@ This program determines the difference between two data structures. Difference c
 ```python3 -m pip install --user git+https://github.com/notsoyoungg/python-project-lvl2.git```
 ### How to use the programm:
 ```gendiff -h``` - for help
-```gendiff -f stylish filepath1.json filepath2.yaml```
+```gendiff -f stylish filepath1.json filepath2.yaml``` - for run the programm
 ### Json plain demonstration:
 [![asciicast](https://asciinema.org/a/O53y24veG8UxQJ594nI9oOStt.svg)](https://asciinema.org/a/O53y24veG8UxQJ594nI9oOStt)
 ### Yml plain demonstration:
