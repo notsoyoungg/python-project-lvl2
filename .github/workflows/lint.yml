@@ -1,12 +1,12 @@
 name: linter
+
 on: push
 jobs:
-  build:
+  start_linter:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          python-version: 3.8.x
+      - name: Check out repository code
+        uses: actions/checkout@v2
       - name: Install dependencies
         run: |
           pip install poetry
