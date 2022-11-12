@@ -5,14 +5,6 @@ def render_stylish(diff):
     return iter_(diff)
 
 
-def format_bool_and_nonetype(value):
-    if isinstance(value, bool):
-        return str(value).lower()
-    if value is None:
-        return 'null'
-    return value
-
-
 def to_str(item, spaces):
     if isinstance(item, dict):
         result = '{'
@@ -22,10 +14,14 @@ def to_str(item, spaces):
                 result += f'\n{spaces}{key}: '
                 result += to_str(value, spaces + tabs)
             else:
-                result += f'\n{spaces}{key}: {format_bool_and_nonetype(value)}'
+                result += f'\n{spaces}{key}: {to_str(value, spaces)}'
         result += '\n' + spaces[len(tabs):] + "}"
         return result
-    return format_bool_and_nonetype(item)
+    if isinstance(item, bool):
+        return str(item).lower()
+    if item is None:
+        return 'null'
+    return item
 
 
 def iter_(diff, indent=''):
