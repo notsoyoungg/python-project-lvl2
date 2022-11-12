@@ -1,6 +1,7 @@
 def make_diff(data1, data2):
     diff = []
-    set_of_keys = sorted(list(set(list(data1.keys()) + list(data2.keys()))))
+    keys = data1.keys() | data2.keys()
+    set_of_keys = sorted(keys)
     for key in set_of_keys:
         if isinstance(data1.get(key), dict) and \
            isinstance(data2.get(key), dict):
